@@ -9,9 +9,9 @@
     android:gravity="center"
     tools:context=".Signup">
 
-    <com.example.theapp.BackgroundVideoView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+<!--    <com.example.theapp.BackgroundVideoView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"/>-->
 
 
     <androidx.cardview.widget.CardView

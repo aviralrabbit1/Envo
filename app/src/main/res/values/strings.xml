@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">TheApp</string>
+    <string-array name="Country_Name">
+        <item>India 🇮🇳</item>
+        <item>USA 🇱🇷</item>
+        <item>France 🇳🇱</item>
+        <item>UK 🇬🇧</item>
+    </string-array>
+    <string-array name="House_size">
+        <item>I\'m broke af (shared room)</item>
+        <item>Studio(Eco-lover)</item>
+        <item>1BHK</item>
+        <item>2BHK</item>
+        <item>3BHK</item>
+        <item>I\'m super rich(F*** nature)</item>
+    </string-array>
+    <string name="title_activity_diet">Diet</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 </resources>
