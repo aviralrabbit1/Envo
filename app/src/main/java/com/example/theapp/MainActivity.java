@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         logout = findViewById(R.id.logout);
         userName = findViewById(R.id.userName);
+
         gOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gClient = GoogleSignIn.getClient(this, gOptions);
         GoogleSignInAccount gAccount = GoogleSignIn.getLastSignedInAccount(this);

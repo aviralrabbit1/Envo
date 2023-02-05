@@ -10,9 +10,9 @@
         for now we are choosing the OutlinedBox ExposedDropdownMenu -->
 
 
-<!--    <com.example.theapp.BackgroundVideoView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"/>-->
+    <com.example.theapp.BackgroundVideoView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout2"
