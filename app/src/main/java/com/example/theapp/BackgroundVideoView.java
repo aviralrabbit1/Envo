@@ -48,7 +48,7 @@ public class BackgroundVideoView extends SurfaceView implements SurfaceHolder.Ca
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
 
-        AssetFileDescriptor assetFileDescriptor = getResources().openRawResourceFd(R.raw.bgvideo);
+        AssetFileDescriptor assetFileDescriptor = getResources().openRawResourceFd(R.raw.bg_video1);
         try {
         if(!isStarted)
         {
