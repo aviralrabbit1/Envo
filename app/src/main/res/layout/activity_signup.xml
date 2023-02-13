@@ -39,30 +39,50 @@
                 android:textColor="@color/lavender"/>
 
 
-            <EditText
-                android:id="@+id/signup_email"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/reg_password2"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/custom_edittext"
-                android:drawableStart="@drawable/ic_baseline_email_24"
-                android:drawablePadding="8dp"
-                android:hint="Email"
-                android:padding="8dp"
-                android:textColor="@color/black" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
 
-            <EditText
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:inputType="textEmailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/signup_email"
+                    android:layout_marginTop="20dp"
+                    android:drawableStart="@drawable/ic_baseline_email_24"
+                    android:drawablePadding="8dp"
+                    android:hint="Email"
+                    android:textColor="@color/black">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/reg_password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/signup_password"
-                android:background="@drawable/custom_edittext"
-                android:layout_marginTop="20dp"
-                android:padding="8dp"
-                android:inputType="textPassword"
+                android:layout_height="wrap_content"
                 android:hint="Password"
-                android:drawableStart="@drawable/ic_baseline_lock_24"
-                android:drawablePadding="8dp"
-                android:textColor="@color/black"/>
+                android:transitionName="password_tran"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:inputType="textPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/signup_password"
+                    android:drawableStart="@drawable/ic_baseline_lock_24"
+                    android:drawablePadding="8dp"
+                    android:textColor="@color/black">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <Button
                 android:layout_width="match_parent"
