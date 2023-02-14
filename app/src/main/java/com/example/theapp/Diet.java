@@ -1,6 +1,7 @@
 package com.example.theapp;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -16,12 +17,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
 import java.util.Collections;
+import java.util.HashMap;
 
 public class Diet extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    int minteger = 0;
+    int dietMinteger = 0;
+    int dietInteger;
+    HashMap<String , Object> mapDiet = new HashMap<>();
+    String selectedDiet;
     Button confirmhouse;
-    String[] users = { "Vegan", "Vegetarian", "Pescatarian", "Omnivore", "Carnivore" };
+    String[] dietOptions = { "Vegan", "Vegetarian", "Pescatarian", "Omnivore", "Carnivore" };
 
 
     @SuppressLint("MissingInflatedId")
@@ -30,9 +40,12 @@ public class Diet extends AppCompatActivity implements AdapterView.OnItemSelecte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diet);
 
+        String userGname =  getIntent().getStringExtra("userGname");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         @SuppressLint({"MissingInflatedId", "LocalSuppress"})
         Spinner spin = (Spinner) findViewById(R.id.spinner1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, users);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dietOptions);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(adapter);
         spin.setOnItemSelectedListener(this);
@@ -41,34 +54,43 @@ public class Diet extends AppCompatActivity implements AdapterView.OnItemSelecte
         confirmhouse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFlightActivity();
+                db.collection("users").document(userGname).set(mapDiet, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(Diet.this,"Order less, Nigga, or go Broke.",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                Intent intent = new Intent(Diet.this, Vehicle.class);
+                intent.putExtra("userGname", userGname);
+                startActivity(intent);
             }
         });
 
     }
     public void increaseInteger(View view) {
-        minteger = minteger + 1;
-        display(minteger);
+        dietMinteger = dietMinteger + 1;
+        display(dietMinteger);
 
     }public void decreaseInteger(View view) {
-        minteger = minteger - 1;
-        if(minteger<1){
-            minteger=1;
+        dietMinteger = dietMinteger - 1;
+        if(dietMinteger<1){
+            dietMinteger=1;
         }
-        display(minteger);
+        display(dietMinteger);
     }
 
     private void display(int number) {
         TextView displayInteger = (TextView) findViewById(
                 R.id.integer_number);
+        dietInteger = dietMinteger;
+        mapDiet.put("Food deliveries per week", dietInteger);
         displayInteger.setText("" + number);
     }
-    public void openFlightActivity(){
-        Intent intent = new Intent(this, Vehicle.class);
-        startActivity(intent);
-    }
+
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-        Toast.makeText(getApplicationContext(), "Selected Type of Residence: "+users[position] ,Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Selected Type of Diet: "+dietOptions[position] ,Toast.LENGTH_SHORT).show();
+        selectedDiet = dietOptions[position];
+        mapDiet.put("Type of diet",selectedDiet);
     }
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO - Custom Code

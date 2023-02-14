@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -30,6 +31,11 @@ public class DropDownCountry extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drop_down_country);
+
+        HashMap<String, Object> countryMap = new HashMap<>();
+
+
+        FirebaseDatabase.getInstance().getReference();
 
         firestore = FirebaseFirestore.getInstance();
 
@@ -51,13 +57,16 @@ public class DropDownCountry extends AppCompatActivity {
         });
 
         String[] countryName = getResources().getStringArray(R.array.Country_Name);
-        @SuppressLint("ResourceType") ArrayAdapter<String> adapter = new ArrayAdapter<String>
+        @SuppressLint("ResourceType")
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (this, android.R.layout.select_dialog_item, countryName);
         //Getting the instance of AutoCompleteTextView
         AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         actv.setThreshold(1);//will start working from first character
         actv.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
         actv.setTextColor(Color.RED);
+
+
 
         confirmcountry = (Button) findViewById(R.id.ConfirmCountry);
         confirmcountry.setOnClickListener(new View.OnClickListener() {

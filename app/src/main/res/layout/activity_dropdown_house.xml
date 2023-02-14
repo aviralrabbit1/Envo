@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".DropdownHouse">
 
-        <com.example.theapp.BackgroundVideoView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+<!--        <com.example.theapp.BackgroundVideoView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"/>-->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
@@ -84,7 +84,7 @@
                 android:text="-" />
 
             <TextView
-                android:id="@+id/integer_number"
+                android:id="@+id/integer_numberHouse"
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:layout_marginLeft="40dp"
