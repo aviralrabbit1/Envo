@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String userGname = googleUsername.toString();
-                Intent intent = new Intent(MainActivity.this, DropdownHouse.class);
+                Intent intent = new Intent(MainActivity.this, DropDownCountry.class);
                 intent.putExtra("userGname", userGname);
                 startActivity(intent);
             }

@@ -72,8 +72,7 @@ public class DropdownHouse extends AppCompatActivity implements AdapterView.OnIt
 
                 Intent intent = new Intent(DropdownHouse.this, Flight.class);
 
-//                String userGName = userGname.toString();
-                intent.putExtra("userGname", userGname.toString());
+               intent.putExtra("userGname", userGname);
 //                mapHouse.put(HouseResidence,members);
 //                FirebaseDatabase.getInstance().getReference().child("Individual").child("users").child("Residence").setValue(mapHouse);
                 startActivity(intent);

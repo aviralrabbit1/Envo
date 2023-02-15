@@ -1,29 +1,31 @@
 package com.example.theapp;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
 import java.util.Collections;
+import java.util.HashMap;
 
-public class Shopping extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    int minteger = 0;
-    int minteger2 = 0;
+public class Shopping extends AppCompatActivity {
+    int clothingMinteger = 0, gadgetMinteger = 0;
+    int clothingNumber, gadgetNumber;
     Button confirmhouse;
-    String[] users = { "I'm broke af (shared room)", "Studio", "1BHK", "2BHK", "3BHK","I'm super rich" };
-
+    HashMap<String , Object> mapShopping = new HashMap<>();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -31,63 +33,62 @@ public class Shopping extends AppCompatActivity implements AdapterView.OnItemSel
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
 
+        String userGname =  getIntent().getStringExtra("userGname");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         confirmhouse = (Button) findViewById(R.id.ConfirmHouse);
         confirmhouse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFlightActivity();
+                db.collection("users").document(userGname).set(mapShopping, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(Shopping.this,"Fly less, Nigga, or go Broke.",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                Intent intent = new Intent(Shopping.this, Result.class);
+                intent.putExtra("userGname", userGname);
+                startActivity(intent);
             }
         });
     }
     public void increaseInteger(View view) {
-        minteger = minteger + 1;
-        display(minteger);
+        clothingMinteger = clothingMinteger + 1;
+        display(clothingMinteger);
 
     }public void decreaseInteger(View view) {
-        minteger = minteger - 1;
-        if(minteger<0){
-            minteger=0;
+        clothingMinteger = clothingMinteger - 1;
+        if(clothingMinteger<0){
+            clothingMinteger=0;
         }
-        display(minteger);
+        display(clothingMinteger);
     }
 
     private void display(int number) {
         TextView displayInteger = (TextView) findViewById(
-                R.id.integer_number);
+                R.id.clothing_integer);
+        clothingNumber = clothingMinteger;
+        mapShopping.put("Clothes bought", clothingNumber);
         displayInteger.setText("" + number);
     }
 
     public void increaseInteger2(View view) {
-        minteger2 = minteger2 + 1;
-        display2(minteger2);
+        gadgetMinteger = gadgetMinteger + 1;
+        display2(gadgetMinteger);
 
     }public void decreaseInteger2(View view) {
-        minteger2 = minteger2 - 1;
-        if(minteger2<0){
-            minteger2=0;
+        gadgetMinteger = gadgetMinteger - 1;
+        if(gadgetMinteger<0){
+            gadgetMinteger=0;
         }
-        display2(minteger2);
+        display2(gadgetMinteger);
     }
 
     private void display2(int number) {
         TextView displayInteger2 = (TextView) findViewById(
-                R.id.integer_number2);
+                R.id.gadget_integer);
+        gadgetNumber = gadgetMinteger;
+        mapShopping.put("Gadget bought", gadgetNumber);
         displayInteger2.setText("" + number);
-    }
-
-    public void openFlightActivity(){
-        Intent intent = new Intent(this, Result.class);
-        startActivity(intent);
-    }
-    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-        Toast.makeText(getApplicationContext(), "Selected Type of Diet "+users[position] ,Toast.LENGTH_SHORT).show();
-    }
-    public void onNothingSelected(AdapterView<?> arg0) {
-        // TODO - Custom Code
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-        super.onPointerCaptureChanged(hasCapture);
     }
 }
