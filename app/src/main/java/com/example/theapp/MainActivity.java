@@ -57,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
             googleUsername = gName;
             userName.setText(gName);
             FirebaseDatabase.getInstance().getReference().child("Individual").child("users").setValue(gName);
+            userinfo.put("name",googleUsername);
+            db.collection("users").document(googleUsername).set(userinfo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(MainActivity.this,"Welcome "+googleUsername,Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,16 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, DropDownCountry.class);
                 intent.putExtra("userGname", userGname);
                 startActivity(intent);
-            }
-        });
-
-        userinfo.put("name",googleUsername);
-        db.collection("users").document(googleUsername).set(userinfo).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(MainActivity.this,"Welcome "+googleUsername,Toast.LENGTH_SHORT).show();
-                }
             }
         });
     }
