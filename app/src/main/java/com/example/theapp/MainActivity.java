@@ -43,11 +43,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        db = FirebaseFirestore.getInstance();
-        Map<String,Object> userinfo = new HashMap<>();
+//        db = FirebaseFirestore.getInstance();
+//        Map<String,Object> userinfo = new HashMap<>();
 
         logout = findViewById(R.id.logout);
         userName = findViewById(R.id.userName);
+
+//        Map<String, Object> city = new HashMap<>();
+//        city.put("name", "Los Angeles");
+//        city.put("state", "CA");
+//        city.put("country", "USA");
+//
+//        db.collection("cities").document("LA")
+//                .set(city)
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if(task.isSuccessful()){
+//                            Toast.makeText(MainActivity.this,"Welcome "+googleUsername,Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
 
         gOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gClient = GoogleSignIn.getClient(this, gOptions);
@@ -56,16 +72,6 @@ public class MainActivity extends AppCompatActivity {
             String gName = gAccount.getDisplayName();
             googleUsername = gName;
             userName.setText(gName);
-            FirebaseDatabase.getInstance().getReference().child("Individual").child("users").setValue(gName);
-            userinfo.put("name",googleUsername);
-            db.collection("users").document(googleUsername).set(userinfo).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
-                        Toast.makeText(MainActivity.this,"Welcome "+googleUsername,Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
         }
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +85,16 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+//        FirebaseDatabase.getInstance().getReference().child("Lioness").child("meow").setValue(googleUsername);
+//        userinfo.put("name",googleUsername);
+//        db.collection("users").document(googleUsername).set(userinfo).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if(task.isSuccessful()){
+//                    Toast.makeText(MainActivity.this,"Welcome "+googleUsername,Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
         Button buttonToLogin = (Button) findViewById(R.id.buttonToLogin);
         buttonToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
 //    @Override
